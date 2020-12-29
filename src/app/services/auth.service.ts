@@ -10,6 +10,14 @@ export class AuthService {
     private auth: AngularFireAuth
   ) { }
 
+  /** nos avisa cuando hay un cambio de autenticacion */
+  public initAuthListener(): void {
+    this.auth.authState.subscribe(fuser => {
+      console.log(fuser?.uid);
+      console.log(fuser?.email);
+    });
+  }
+
   public crearUsuario(
     nombre: string,
     correo: string,
@@ -25,7 +33,7 @@ export class AuthService {
     return this.auth.signInWithEmailAndPassword(correo, password);
   }
 
-  public logout(): void {
-    this.auth.signOut();
+  public logout() {
+    return this.auth.signOut();
   }
 }
